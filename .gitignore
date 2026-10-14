@@ -1,0 +1,14 @@
+# private or large: never commit
+.venv/
+__pycache__/
+output/
+superstore.csv
+superstore_bad.csv
+
+# Power BI files other than the finished dashboard (the old ones contain the full data)
+*.pbix
+!profit-leakage-dashboard.pbix
+profit-leakage-dashboard.pdf
+
+# working notes between chats
+handover-*.md
