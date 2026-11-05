@@ -2,10 +2,13 @@
 
 An AI agent that finds where a retail business loses money. It is built directly on the Claude API, with a one-page brief and a Power BI dashboard.
 
+I don't code. Claude wrote the Python. I set the rules, tested the agent, and checked its answers against tables I built by hand in Power BI.
+
 **Finding:** sales discounted by more than 20% earned a margin of -42.21%, against 21.30% for sales discounted by 20% or less (including none), from 2011 to 2014.
 
 - One-page brief: [brief/profit-leakage-brief.pdf](brief/profit-leakage-brief.pdf)
 - Power BI dashboard (picture): see below
+- A real run, start to finish: [sample-run/run_20261013_235553.txt](sample-run/run_20261013_235553.txt). It shows the question, every tool call and result, and the final answer.
 
 ![Dashboard](profit-leakage-dashboard-final.png)
 
@@ -17,7 +20,7 @@ The data is Global Superstore from Kaggle (by fatihilhan): 51,290 order lines, f
 
 ## How the agent works
 
-The agent is Claude plus five fixed code tools, running in a loop with a cap of 15 steps. Each round, Claude either asks for a tool or writes its answer. The tool is plain code, so all the arithmetic happens there. Claude never calculates anything itself.
+The agent is Claude plus five fixed code tools, running in a loop with a cap of 15 steps. Each round, Claude either asks for a tool or writes its answer. The tool is plain code, so the arithmetic happens there. Claude is told never to calculate anything itself. That is a rule, not a guarantee: in early test runs it once added two numbers itself and once miscounted a table by eye (`decision-log-agent.md`, entries 61 and 94).
 
 | Tool | Its one job |
 |---|---|
@@ -60,6 +63,8 @@ The brief has the numbers and the charts.
 - **This shows an association, not cause.** The same products earn 21.46% at 20% or less and -42.31% above 20%, so it is not only bad products. I cannot rule out other reasons.
 - **The shipping check is weaker.** Its last two groups hold only 14 and 3 sales. Profit also appears not to include shipping cost.
 - **The data is public, from 2011 to 2014, and may be synthetic.**
+- **It has only been run on this one dataset.** The tools name no columns, but the agent has not been tried on different data, and its instructions assume a retail business.
+- **Nothing checks the final answer automatically.** The code checks its own tables and exports. I compare each written answer with those tables myself.
 
 ## Run it yourself
 
@@ -89,6 +94,7 @@ python agent.py superstore.csv claude-sonnet-5-5
 - `make_dashboard_tables.py`, `make_brief_charts.py`, `extra_checks.py`: free scripts for the dashboard, the brief's charts and the brief's extra checks
 - `decision-log-agent.md`: every technical choice and why
 - `brief/`: the one-page brief
+- `sample-run/`: the full record of the final run
 
 ## Data and licence
 
