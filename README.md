@@ -63,7 +63,7 @@ The brief has the numbers and the charts.
 - **This shows an association, not cause.** The same products earn 21.46% at 20% or less and -42.31% above 20%, so it is not only bad products. I cannot rule out other reasons.
 - **The shipping check is weaker.** Its last two groups hold only 14 and 3 sales. Profit also appears not to include shipping cost.
 - **The data is public, from 2011 to 2014, and may be synthetic.**
-- **It has only been run on this one dataset.** The tools name no columns, but the agent has not been tried on different data, and its instructions assume a retail business.
+- **It has only been run on this one dataset.** The tools are written to be generic, but the agent has not been tried on different data, and its instructions assume a retail business.
 - **Nothing checks the final answer automatically.** The code checks its own tables and exports. I compare each written answer with those tables myself.
 
 ## Run it yourself
